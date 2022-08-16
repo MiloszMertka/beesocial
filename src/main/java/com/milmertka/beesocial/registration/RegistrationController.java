@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/registration")
 @AllArgsConstructor
@@ -19,8 +21,8 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<String> signUpUser(@RequestBody User user) {
-        userService.signUpUser(user);
+    public ResponseEntity<String> signUpUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+        userService.signUpUser(registrationRequest);
         return new ResponseEntity<>(REGISTRATION_SUCCESS_MESSAGE, HttpStatus.CREATED);
     }
 }

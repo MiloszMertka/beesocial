@@ -1,5 +1,6 @@
 package com.milmertka.beesocial.user;
 
+import com.milmertka.beesocial.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,20 +23,29 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE, username)));
     }
 
-    public void signUpUser(User user) {
-        final String email = user.getEmail();
+    public void signUpUser(RegistrationRequest registrationRequest) {
+        final String email = registrationRequest.email();
 
         if (emailIsTaken(email)) {
             throw new IllegalStateException(String.format(EMAIL_IS_TAKEN_MESSAGE, email));
         }
 
+        User user = createUserFromRegistrationRequest(registrationRequest);
         encodeUserPassword(user);
-
         userRepository.save(user);
     }
 
     private boolean emailIsTaken(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    private User createUserFromRegistrationRequest(RegistrationRequest registrationRequest) {
+        return User.builder()
+                .email(registrationRequest.email())
+                .password(registrationRequest.password())
+                .firstName(registrationRequest.firstName())
+                .lastName(registrationRequest.lastName())
+                .build();
     }
 
     private void encodeUserPassword(User user) {
