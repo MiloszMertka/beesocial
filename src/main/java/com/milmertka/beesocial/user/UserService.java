@@ -40,12 +40,10 @@ public class UserService implements UserDetailsService {
     }
 
     private User createUserFromRegistrationRequest(RegistrationRequest registrationRequest) {
-        return User.builder()
-                .email(registrationRequest.email())
-                .password(registrationRequest.password())
-                .firstName(registrationRequest.firstName())
-                .lastName(registrationRequest.lastName())
-                .build();
+        return new User(registrationRequest.email(),
+                        registrationRequest.firstName(),
+                        registrationRequest.lastName(),
+                        registrationRequest.password());
     }
 
     private void encodeUserPassword(User user) {

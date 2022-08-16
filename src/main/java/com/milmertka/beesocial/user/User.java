@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Collections;
 
+import static com.milmertka.beesocial.user.Role.*;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -44,18 +46,17 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = USER;
     private Boolean enabled = true;
     private Boolean locked = false;
     private Boolean expired = false;
     private Boolean credentialsExpired = false;
 
-    public User(String email, String firstName, String lastName, String password, Role role) {
+    public User(String email, String firstName, String lastName, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
     }
 
     @Override
