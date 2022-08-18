@@ -1,5 +1,6 @@
 package com.milmertka.beesocial.user;
 
+import com.milmertka.beesocial.group.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.milmertka.beesocial.user.Role.*;
 
@@ -51,6 +54,9 @@ public class User implements UserDetails {
     private Boolean locked = false;
     private Boolean expired = false;
     private Boolean credentialsExpired = false;
+
+    @ManyToMany(mappedBy = "members")
+    private Set<Group> groups = new HashSet<>();
 
     public User(String email, String firstName, String lastName, String password) {
         this.email = email;
