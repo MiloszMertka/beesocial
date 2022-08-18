@@ -2,7 +2,6 @@ package com.milmertka.beesocial.user;
 
 import com.milmertka.beesocial.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
-    private static final String USER_NOT_FOUND_MESSAGE = "User with email %s does not exists";
+    private static final String USER_NOT_FOUND_MESSAGE = "User with email %s does not exist";
     private static final String EMAIL_IS_TAKEN_MESSAGE = "Email %s is already taken";
 
     private final UserRepository userRepository;

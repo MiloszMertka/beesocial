@@ -48,7 +48,7 @@ class UserServiceTest {
         // then
         assertThatThrownBy(() -> userService.loadUserByUsername(username))
                 .isInstanceOf(UsernameNotFoundException.class)
-                .hasMessage("User with email " + username + " does not exists");
+                .hasMessage("User with email " + username + " does not exist");
     }
 
     @Test
