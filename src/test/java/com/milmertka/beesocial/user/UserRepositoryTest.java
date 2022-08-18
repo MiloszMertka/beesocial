@@ -15,12 +15,12 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         userRepository.deleteAll();
     }
 
     @Test
-    public void findByEmail() {
+    void itShouldFindUserByEmail() {
         // given
         User user = new User("test@beesocial.com", "John", "Doe", "password123");
         userRepository.save(user);

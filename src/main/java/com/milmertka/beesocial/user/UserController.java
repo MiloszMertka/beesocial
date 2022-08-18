@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<User> getAuthenticatedUser(Principal principal) {
-        User user = userService.getUserByEmail(principal.getName());
+        User user = userService.loadUserByUsername(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
