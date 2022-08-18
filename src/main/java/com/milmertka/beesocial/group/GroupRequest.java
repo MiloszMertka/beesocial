@@ -1,4 +1,7 @@
 package com.milmertka.beesocial.group;
 
-public record GroupRequest(String name, String description) {
+import javax.validation.constraints.NotBlank;
+
+public record GroupRequest(@NotBlank String name,
+                           @NotBlank String description) {
 }

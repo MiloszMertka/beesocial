@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,13 @@ public class GroupController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Group>> getListOfGroups(@RequestBody String name) {
+    public ResponseEntity<List<Group>> getListOfGroups(@RequestParam String name) {
         List<Group> groups = groupService.findGroupsByName(name);
         return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<String> createGroup(@RequestBody GroupRequest groupRequest) {
+    public ResponseEntity<String> createGroup(@RequestBody @Valid GroupRequest groupRequest) {
         groupService.createGroup(groupRequest);
         return new ResponseEntity<>(GROUP_CREATED_MESSAGE, HttpStatus.CREATED);
     }
